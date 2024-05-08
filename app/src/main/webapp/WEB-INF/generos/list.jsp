@@ -5,11 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Genêros</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
+    <div class="container">
     <h1>Genêros</h1>
-    <a href="/generos/insert">Novo Genêro</a>  
-    <table>
+    <a href="/generos/insert" class="btn btn-primary">Novo Genêro</a>  
+    <table class="table">
         <tr>
             <th>Id</th>
             <th>Nome</th>
@@ -20,11 +22,12 @@
             <td>${item.id}</td>
             <td>${item.nome}</td>
             <td>
-                <a href="/generos/update?id=${item.id}">Editar</a>
-                <a href="/generos/delete?id=${item.id}">Excluir</a>
+                <a href="/generos/update?id=${item.id}" class="btn btn-secondary">Editar</a>
+                <a href="/generos/delete?id=${item.id}" class="btn btn-danger">Excluir</a>
             </td>
         </tr>
         </c:forEach>
     </table>
+</div>
 </body>
 </html>
