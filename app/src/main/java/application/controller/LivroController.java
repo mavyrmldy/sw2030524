@@ -1,4 +1,5 @@
 package application.controller;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,9 +43,11 @@ public class LivroController {
             livro.setTitulo(titulo);
             livro.setGenero(resultGenero.get());
             livroRepo.save(livro);
+            // Adicione uma mensagem de sucesso, se necessário
+        } else {
+            // Adicione uma mensagem de erro, se necessário
         }
         return "redirect:/livros/list";
-
     }
     
     @RequestMapping("/update")
@@ -67,11 +70,15 @@ public class LivroController {
         Optional<Livro> resultLivro = livroRepo.findById(id);
         if(resultLivro.isPresent()) {
             Optional<Genero> resultGenero = generoRepo.findById(generoId);
-            if(resultGenero.isPresent());
-            resultLivro.get().setTitulo(titulo);
-            resultLivro.get().setGenero(resultGenero.get());
-
-            livroRepo.save(resultLivro.get());
+            if(resultGenero.isPresent()) {
+                Livro livro = resultLivro.get();
+                livro.setTitulo(titulo);
+                livro.setGenero(resultGenero.get());
+                livroRepo.save(livro);
+                // Adicione uma mensagem de sucesso, se necessário
+            } else {
+                // Adicione uma mensagem de erro, se necessário
+            }
         }
         return "redirect:/livros/list";
     }   
@@ -86,13 +93,15 @@ public class LivroController {
         return "redirect:/livros/list";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMapping.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("id") long id){
-        livroRepo.deleteById(id);
+        Optional<Livro> resultLivro = livroRepo.findById(id);
+        if(resultLivro.isPresent()) {
+            livroRepo.deleteById(id);
+            // Adicione uma mensagem de sucesso, se necessário
+        } else {
+            // Adicione uma mensagem de erro, se necessário
+        }
         return "redirect:/livros/list";
     }
- }
-
-
-
-
+}
